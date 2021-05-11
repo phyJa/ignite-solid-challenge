@@ -1,3 +1,66 @@
 {
-  
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Manage Users API",
+    "description": "An API to manage users. It was developped in the second challenge of the SOLID chapter in the Ignite course",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "Create a new user",
+        "description": "This path creates a new user using their name and email",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "John Will",
+                  "email": "jw@test.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "A JSON user object with name, email and admin status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "James"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "james@test.com"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            
+          }
+        }
+      }
+    }
+  }
 }
