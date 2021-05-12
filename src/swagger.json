@@ -57,7 +57,72 @@
             }
           },
           "400": {
-            
+            "description": "This error appears when trying to create a user that already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User already exists!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List all users",
+        "description": "This is a route to list all the users of the app. It is necessary that the user who makes the request be an admin. This information comes in the headers of the request",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of users is successfully displayed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Sarah"
+                      },
+                      "admin": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2021-05-07T01:24:11.208Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+
           }
         }
       }
