@@ -121,9 +121,37 @@
               }
             }
           },
-          "400": {
-
-          }
+          "400":
+            {
+              "description": "Bad requests. Notice that there are two cases here. The first one is when who requests is not an admin. The second one is the situation where who requests does not exist in the system",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string",
+                            "example": "Access denied. Who requests is not an admin"
+                          }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string",
+                            "example": "Access denied. Who requests does not exist in the database."
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          
         }
       }
     }
