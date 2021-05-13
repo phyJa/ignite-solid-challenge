@@ -8,6 +8,7 @@
   "paths": {
     "/users": {
       "post": {
+        "tags": ["Users"],
         "summary": "Create a new user",
         "description": "This path creates a new user using their name and email",
         "requestBody": {
@@ -75,6 +76,7 @@
         }
       },
       "get": {
+        "tags": ["Users"],
         "summary": "List all users",
         "description": "This is a route to list all the users of the app. It is necessary that the user who makes the request be an admin. This information comes in the headers of the request",
         "parameters": [
@@ -121,8 +123,7 @@
               }
             }
           },
-          "400":
-            {
+          "400": {
               "description": "Bad requests. Notice that there are two cases here. The first one is when who requests is not an admin. The second one is the situation where who requests does not exist in the system",
               "content": {
                 "application/json": {
@@ -151,12 +152,12 @@
                 }
               }
             }
-          
         }
       }
     },
     "/users/{user_id}/admin": {
       "patch": {
+        "tags": ["Users"],
         "summary": "Turn a user into an admin",
         "description": "This route turns a user into a new admin of the system",
         "parameters": [
@@ -194,6 +195,11 @@
                       "type": "string",
                       "format": "date",
                       "example": "2021-05-07T01:24:11.208Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date",
+                      "example": "2021-05-09T01:24:11.208Z"
                     }
                   }
                 }
@@ -206,6 +212,76 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Error: This user does not exist..."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Lists a specific user",
+        "description": "Lists the user whose uuid is passed in the route",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user was found and then displayed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "John"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date",
+                      "example": "2021-05-07T01:24:11.208Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date",
+                      "example": "2021-05-09T01:24:11.208Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "This user does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object", 
                   "properties": {
                     "error": {
                       "type": "string",
