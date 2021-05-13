@@ -154,6 +154,70 @@
           
         }
       }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "summary": "Turn a user into an admin",
+        "description": "This route turns a user into a new admin of the system",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User has successfully become a user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "John"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "value": "true"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date",
+                      "example": "2021-05-07T01:24:11.208Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The user that is requested to be an admin was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Error: This user does not exist..."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
